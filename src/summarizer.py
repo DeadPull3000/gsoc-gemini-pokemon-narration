@@ -3,11 +3,12 @@ import os
 import argparse
 from dotenv import load_dotenv
 
-# Import the NEW google-genai library
+# Import the google-genai library
 try:
     from google import genai
     GEMINI_AVAILABLE = True
 except ImportError:
+    genai = None 
     GEMINI_AVAILABLE = False
 
 # Load environment variables (like GEMINI_API_KEY)
@@ -34,7 +35,7 @@ def generate_summary(prompt):
     """Generates the summary using the new Gemini Client API."""
     api_key = os.getenv("GEMINI_API_KEY")
 
-    if not api_key or not GEMINI_AVAILABLE:
+    if not api_key or not GEMINI_AVAILABLE or genai is None:
         print("[INFO] No GEMINI_API_KEY found or google-genai not installed. Using mock output for reproducibility.")
         return (
             "Ash began his journey on Route 1, where a quick Thunderbolt from Pikachu dealt with a wild Pidgey "
@@ -47,15 +48,16 @@ def generate_summary(prompt):
     # 1. Initialize the new Client
     client = genai.Client(api_key=api_key)
     
-    # 2. Call the API using client.models.generate_content
-    # Using gemini-1.5-flash as it is fast, cheap, and excellent for text tasks
+    # 2. Call the API
     response = client.models.generate_content(
         model='gemini-1.5-flash',
         contents=prompt
     )
     
-    return response.text.strip()
-
+    if response.text:
+        return response.text.strip()
+    else:
+        return "Error: No text was generated (possible safety filter block)."
 def main():
     parser = argparse.ArgumentParser(description="Gemini-Powered Ecosystem Narration")
     parser.add_argument("--data", type=str, default="data/pokemon_events.json", help="Path to the JSON data file")
