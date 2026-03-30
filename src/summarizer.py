@@ -3,9 +3,9 @@ import os
 import argparse
 from dotenv import load_dotenv
 
-# Try importing the Gemini library. If not installed, handle gracefully.
+# Import the NEW google-genai library
 try:
-    import google.generativeai as genai
+    from google import genai
     GEMINI_AVAILABLE = True
 except ImportError:
     GEMINI_AVAILABLE = False
@@ -31,25 +31,29 @@ def get_prompt(events):
     return prompt
 
 def generate_summary(prompt):
-    """Generates the summary using Gemini API, or returns a mock if no key/lib is found."""
+    """Generates the summary using the new Gemini Client API."""
     api_key = os.getenv("GEMINI_API_KEY")
 
     if not api_key or not GEMINI_AVAILABLE:
-        print("[INFO] No GEMINI_API_KEY found or google-generativeai not installed. Using mock output for reproducibility.")
+        print("[INFO] No GEMINI_API_KEY found or google-genai not installed. Using mock output for reproducibility.")
         return (
             "Ash began his journey on Route 1, where a quick Thunderbolt from Pikachu dealt with a wild Pidgey "
             "before they stumbled upon a useful Potion. After resting up at the Viridian City Pokémon Center, "
             "the duo confidently entered Viridian Forest and emerged victorious in a battle against Bug Catcher Rick."
         )
 
-    # Configure Gemini API
-    genai.configure(api_key=api_key)
+    print("[INFO] Calling Gemini API using the new google-genai SDK...")
     
-    # Using the standard gemini-1.5-flash model for quick text generation
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    # 1. Initialize the new Client
+    client = genai.Client(api_key=api_key)
     
-    print("[INFO] Calling Gemini API...")
-    response = model.generate_content(prompt)
+    # 2. Call the API using client.models.generate_content
+    # Using gemini-1.5-flash as it is fast, cheap, and excellent for text tasks
+    response = client.models.generate_content(
+        model='gemini-1.5-flash',
+        contents=prompt
+    )
+    
     return response.text.strip()
 
 def main():
@@ -78,7 +82,8 @@ def main():
     print("="*50 + "\n")
 
     # Optionally save to output folder
-    with open("outputs/sample_output.txt", "w") as f:
+    os.makedirs("outputs", exist_ok=True)
+    with open("outputs/sample_output.txt", "w", encoding="utf-8") as f:
         f.write(f"PROMPT:\n{prompt}\n\nSUMMARY:\n{summary}\n")
 
 if __name__ == "__main__":
