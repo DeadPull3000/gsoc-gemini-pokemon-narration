@@ -1,0 +1,30 @@
+[
+  {
+    "timestamp": "2026-03-30T08:00:00Z",
+    "trainer": "Ash",
+    "location": "Route 1",
+    "action": "Encountered a wild Pidgey",
+    "outcome": "Pikachu used Thunderbolt, Pidgey fainted."
+  },
+  {
+    "timestamp": "2026-03-30T08:15:00Z",
+    "trainer": "Ash",
+    "location": "Route 1",
+    "action": "Found a hidden item in the tall grass",
+    "outcome": "Obtained 1x Potion."
+  },
+  {
+    "timestamp": "2026-03-30T09:30:00Z",
+    "trainer": "Ash",
+    "location": "Viridian City",
+    "action": "Healed Pokémon at the Pokémon Center",
+    "outcome": "Pikachu restored to full health."
+  },
+    {
+      "timestamp": "2026-03-30T10:00:00Z",
+      "trainer": "Ash",
+      "location": "Viridian Forest",
+      "action": "Challenged Bug Catcher Rick",
+      "outcome": "Won the battle, obtained 120 Pokédollars."
+    }
+  ]
