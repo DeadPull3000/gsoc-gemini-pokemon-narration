@@ -87,5 +87,5 @@ python src/summarizer.py --data path/to/your/custom_data.json
 To evaluate the fault-tolerance of this script, you can simulate API failures:
 1. **Simulate Missing Credentials:** Temporarily rename your `.env` file to something else. The script will log an `[INFO]` message and return the mock summary.
 2. **Simulate Network/API Crash:** Turn off your Wi-Fi or change the model name in the code to an invalid string (e.g., `gemini-fake-model`). The `try...except` block will catch the `404/500` error, log a `[WARNING]`, and safely print the mock summary without halting execution.
-```
+
 
