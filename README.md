@@ -82,6 +82,16 @@ To run the script with a custom JSON dataset:
 python src/summarizer.py --data path/to/your/custom_data.json
 ```
 
+## Sample Output
+
+```bash
+==================================================
+GENERATED NARRATION:
+==================================================
+With the boundless spirit of a new trainer, Ash set out, his Pikachu's Thunderbolt swiftly clearing a path through Route 1's tall grass and a wild Pidgey. After a quick stop in Viridian City to refresh his companion at the Pokémon Center, he delved into the shadowy depths of Viridian Forest. There, he proved his mettle by overcoming Bug Catcher Rick, earning not just prize money, but a taste of true trainer glory.
+==================================================
+```
+
 ## Evaluator Notes: Testing the Fallbacks
 
 To evaluate the fault-tolerance of this script, you can simulate API failures:
