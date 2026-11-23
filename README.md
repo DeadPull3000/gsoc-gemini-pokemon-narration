@@ -1,3 +1,10 @@
+<picture>
+  <source media="(prefers-reduced-motion: no-preference)" srcset="./project-scan.gif">
+  <img src="./project-static.png" width="1056" alt="Gemini Event Narration ASCII project diagram">
+</picture>
+
+The CLI formats structured game events for narration. Mock mode returns sample output for offline exploration.
+
 # Gemini-Powered Ecosystem Narration (GSoC Entry Task)
 
 This repository contains my entry task for the Google Summer of Code proposal. It demonstrates the ability to ingest ecosystem data (Pokémon-themed), engineer an effective prompt, and utilize the modern Google Gemini API to generate a concise, 2-4 sentence narrative summary.
